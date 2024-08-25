@@ -11,18 +11,26 @@
     "preview": "vite preview",
     "electron:dev": "concurrently \"vite\" \"electron .\"",
     "electron:build": "vite build && electron-builder",
-    "electron:preview": "vite build && electron ."
+    "electron:preview": "vite build && electron .",
+    "build:main": "webpack --config webpack.config.js --target electron-main",
+    "build:renderer": "webpack --config webpack.config.js --target electron-renderer",
+    "build": "npm run build:main && npm run build:renderer"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
+    "babel-loader": "^9.1.3",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
+    "css-loader": "^7.1.2",
     "electron": "^32.0.1",
     "electron-builder": "^24.13.3",
     "electron-is-dev": "^3.0.1",
@@ -30,7 +38,10 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "style-loader": "^4.0.0",
     "vite": "^5.2.0",
-    "wait-on": "^8.0.0"
+    "wait-on": "^8.0.0",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   }
 }
