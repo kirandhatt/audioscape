@@ -3,18 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "electron/main.js",
+  "main": "dist/main.js",
   "homepage": "./",
   "scripts": {
-    "dev": "vite",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "electron:dev": "concurrently \"vite\" \"electron .\"",
     "electron:build": "vite build && electron-builder",
     "electron:preview": "vite build && electron .",
+    "start": "electron .",
     "build:main": "webpack --config webpack.config.js --target electron-main",
     "build:renderer": "webpack --config webpack.config.js --target electron-renderer",
-    "build": "npm run build:main && npm run build:renderer"
+    "build": "npm run build:main && npm run build:renderer",
+    "dev": "npm run build && npm start"
   },
   "dependencies": {
     "react": "^18.2.0",

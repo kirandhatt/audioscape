@@ -1,14 +1,25 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [response, setResponse] = useState('');
+
+  const handlePing = async () => {
+    try {
+      const result = await window.electronAPI.ping();
+      setResponse(result);
+    } catch (error) {
+      console.error('Error:', error);
+      setResponse('Error occurred');
+    }
+  };
 
   return (
-    <>
-
-    </>
-  )
+    <div>
+      <h1>Electron IPC Example</h1>
+      <button onClick={handlePing}>Ping</button>
+      <p>Response: {response}</p>
+    </div>
+  );
 }
 
-export default App
+export default App;

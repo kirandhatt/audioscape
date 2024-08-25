@@ -4,17 +4,26 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const MAIN_ENTRY_POINT = './electron/main.js';
+const RENDERER_ENTRY_POINT = './src/main.jsx';
+
 export default (env, argv) => {
   const isElectronMain = argv.target === 'electron-main';
 
   return {
-    entry: isElectronMain ? './electron/main.js' : './src/main.jsx',
+    entry: isElectronMain 
+      ? { main: MAIN_ENTRY_POINT, preload: './electron/preload.js' }
+      : RENDERER_ENTRY_POINT,
+    
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: isElectronMain ? 'main.js' : 'renderer.js'
+      filename: isElectronMain ? '[name].js' : 'renderer.js'
     },
+    
     target: isElectronMain ? 'electron-main' : 'electron-renderer',
+    
     mode: 'development',
+    
     module: {
       rules: [
         {
@@ -33,13 +42,11 @@ export default (env, argv) => {
         }
       ]
     },
+    
     resolve: {
       extensions: ['.js', '.jsx', '.json']
     },
-    devtool: 'source-map',
-    plugins: [],
-    optimization: {
-      minimize: false
-    }
+    
+    devtool: 'source-map'
   };
 };
